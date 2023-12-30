@@ -58,7 +58,7 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Inspire",
+          title: "WritePilot",
           to: "/WritePilot",
         },
       ],

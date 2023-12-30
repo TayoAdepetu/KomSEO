@@ -14,11 +14,17 @@
               :search-input.sync="search"
               hide-selected
               hint="Maximum of 5 keywords"
-              label="Add some keywords"
+              label="Add some keywords. Press Enter after each keyword to add to the keyword array."
               multiple
               persistent-hint
               small-chips
-              class="first"
+              style="
+                border: solid white 2px;
+                padding: 10spx;
+                min-width: 100%;
+                display: block;
+                background-color: #353839;
+              "
             >
             </v-combobox>
 
@@ -30,7 +36,7 @@
                 padding: 5px;
                 min-width: 100%;
                 display: block;
-                color: white;
+                background-color: white;
               "
               type="number"
               placeholder="Add number of words"
@@ -46,7 +52,7 @@
                 min-width: 100%;
                 display: block;
                 margin-top: 10px;
-                color: white;
+                background-color: white;
               "
               v-model="title"
               placeholder="Add title of the article"
@@ -55,22 +61,34 @@
             <br />
 
             <v-select
+              style="
+                border: solid white 2px;
+                padding: 10spx;
+                min-width: 100%;
+                display: block;
+                background-color: #353839;
+              "
               :items="tone_options"
               v-model="tone"
               density="compact"
               label="Select writing tone"
             ></v-select>
-            <v-card-actions>
-              <v-btn color="primary" type="submit" block>
-                Generate SEO Rich Text
-              </v-btn>
-            </v-card-actions>
+            <v-btn
+              color=""
+              style="
+                background-color: white;
+                color: black;
+                width: 100%;
+                margin-top: 15px;
+              "
+              type="submit"
+              block
+            >
+              Click To Generate SEO Rich Text
+            </v-btn>
           </form>
         </div>
         <v-card-text> </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" nuxt to="/writepilot"> Continue </v-btn>
-        </v-card-actions>
       </div>
     </div>
   </v-row>
