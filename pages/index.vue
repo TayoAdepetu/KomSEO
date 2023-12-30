@@ -8,7 +8,7 @@
         <br />
 
         <div class="">
-          <form>
+          <form @submit.prevent="generateText">
             <v-combobox
               v-model="keywords"
               :search-input.sync="search"
@@ -55,10 +55,16 @@
             <br />
 
             <v-select
-              :items="tone"
+              :items="tone_options"
+              v-model="tone"
               density="compact"
               label="Select writing tone"
             ></v-select>
+            <v-card-actions>
+              <v-btn color="primary" type="submit" block>
+                Generate SEO Rich Text
+              </v-btn>
+            </v-card-actions>
           </form>
         </div>
         <v-card-text> </v-card-text>
@@ -71,17 +77,19 @@
 </template>
 
 <script>
-// import OpenAI from "openai";
+import OpenAI from "openai";
 
 export default {
   data() {
     return {
+      openaiAPIKey: process.env.VUE_APP_OPENAI_API_KEY,
       items: [],
       search: null,
       words: null,
       keywords: [],
       title: null,
-      tone: [
+      tone: null,
+      tone_options: [
         "narrative",
         "authoritative",
         "sad",
@@ -96,18 +104,20 @@ export default {
   methods: {
     async generateText() {
       const openai = new OpenAI({
-        apiKey: "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",
+        apiKey: this.openaiAPIKey,
+        dangerouslyAllowBrowser: true,
       });
 
       const wordss = this.words;
       const keywordss = this.keywords.join(", ");
       const topic = this.title;
+      const tonee = this.tone; // Fix: Change `tone` to `tonee`
 
       const chatResponse = await openai.chat.completions.create({
         messages: [
           {
             role: "user",
-            content: `You are an expert content creator, in a/an ${tone} tone, create a ${wordss} words SEO-optimized content about ${topic}, and include these keywords in the content: ${keywordss}.`,
+            content: `You are an expert content creator, in a/an ${tonee} tone, create a ${wordss} words SEO-optimized content about ${topic}, and include these keywords in the content: ${keywordss}.`,
           },
         ],
 
